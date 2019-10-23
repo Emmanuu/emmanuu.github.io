@@ -30,8 +30,7 @@ class MyVisualizer extends AbstractVisualizer {
       // 3) Compare the time properties to peak properties (part 1 and 2 above):
       //    -- If the audio's current time is greater or equal to the time of
       //    the peak, draw visualizations (drawShapes).
-      if (//TODO(you): Logic statement from step 3) here
-      ) {
+      if (true)  {
 
         // Update the frame.
         requestAnimationFrame(() => {
@@ -78,9 +77,9 @@ document.getElementById('playButton').addEventListener('click', (clickEvent) => 
     // https://doxdox.org/jmperez/spotify-web-api-js#src-spotify-web-api.js-constr.prototype.searchtracks
     spotifyApi.searchTracks( 'cyanide', {limit : 1}) 
   .then((results)=> {
-   let previewurl = " "
+   let previewUrl= results.tracks.items[0].preview_url
           // TODO(you): Access track from results to find a previewUrl.
-        if (previewUrl)
+        if (true)
          {
           // Sets the HTML audio element source to the music.
           audioEl.src = previewUrl;
@@ -91,7 +90,7 @@ document.getElementById('playButton').addEventListener('click', (clickEvent) => 
             // TODO(you): Create an instance of MyVisualizer using the
             // analyzed audio.
 
-            audioEl.play();
+            audioEl.play( );
             
             // Use MyVisualizer's startVisual to start visualization.
             visualizer.startVisual();
