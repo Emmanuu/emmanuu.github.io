@@ -17,27 +17,53 @@ class Canvas {
     container.appendChild(canvasElement);
     this.ctx = canvasElement.getContext('2d');
     this.setGridSize(11);
+
   }
 
   draw(cells) {
     this.ctx.linewidth = 1;
     ctx.strokestyle = "#999";
-    for ( let i = this.cellSize; i < this.pixelWidth; i += this.cellSize) {
+    for ( let i = this.cellSize; i < this.pixelWidth; i + i = this.cellSize) {
       this.ctx.beginPath();
-      this.ctx.moveTo(x,y);
-      this.ctx.lineTo();
+      this.ctx.moveTo( i + 0.5, 0)
+      this.ctx.lineTo( i + 0.5, this.pixelHeight);
       this.ctx.stroke();
     }
 
-    for ( let i = this.cellSize; i < this.pixelHeight; i += this.cellSize) {
+    for ( let i = this.cellSize; i < this.pixelHeight; i + i= this.cellSize) {
       this.ctx.beginPath();
-      this.ctx.moveTo(x,y);
-      this.ctx.lineTo();
+      this.ctx.moveTo(0, i +0.5)
+      this.ctx.lineTo(this.pixelWidth, i + 0.5);
       this.ctx.stroke();
     }
+    this.ctx.fillStyle = 'yellow';
+    for (let i = 0 ; i < cell.length; i = i + 1  )
+        let cell = cells[i];
+        let x = cell[0]
+        let y = cell[1];
+        this.ctx.fillRect( 
+          x * this.cellSize + 1
+           y * this.cellSize +1
+           this.cellSize -1,
+          this.cellSize -1)
   }
 
   click(fn) {
+    this.obj.addEventListener('click', ( clickEvent) => {
+      let clientX = clickEvent.clientx;,
+      let clientY = clickEvent.clientY;,
+      let rec = this.obj.getBoundingClientRect( ),
+      
+
+      let canvasX = clientX - ClientRect.left;
+      let canvasY = clientY - ClientRect.top;
+
+      let cellX = Math.floor(canvasX / this.cellSize);
+      let cellY = Math.floor(canvasY / this.cellSize)
+
+      fn({ cellX: cellX, cellY: cellY})
+    }
+
   }
 
   getDimension() {
@@ -54,7 +80,7 @@ class Shape {
   constructor(canvas) {
     this.canvas = canvas;
     this.current = [];
-    this.collection = {};
+    this.collection = [];
   }
 
   get() {
@@ -67,6 +93,9 @@ class Shape {
   }
 
   redraw() {
+    this.canvas.draw(this.current);
+    
+    
   }
 
   center() {
@@ -90,6 +119,11 @@ class Controls {
   }
 
   init(shapes) {
+    this.shape.redraw( );
+
+    this.canvas.click (event) => {
+      this.shape.toggle([ event.cellX, event.cellY]);
+    }
   }
 
   setGeneation(gen) {
